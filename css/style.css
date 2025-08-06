@@ -1,0 +1,73 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+    background-color: #1f1b18;
+    color: #f5f0e1;
+    line-height: 1.6;
+}
+
+header{
+    text-align: center;
+    padding: 2rem 1rem;
+    background-color: #3b2f2f;
+    border-bottom: 4px solid #c19a6b;
+}
+
+h1{
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+.subtitulo{
+    font-size: 1rem;
+    color: #d4bfa3;
+    margin-top: 0.5rem;
+}
+
+#filtros button{
+    background-color: #c19a6b;
+    color: #1f1b18;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#filtros button:hover{
+    background-color: #a87d56;
+}
+
+#lista-poemas{
+    padding: 2rem;
+    display: grid;
+    gap: 2rem;
+    max-width: 800px;
+    margin: auto;
+}
+
+.poema{
+    border-left: 5px solid #c19a6b;
+    padding-left: 1rem;
+    background-color: #2d2420;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.poema h2{
+    margin: 0 0 0.5rem 0;
+}
+
+.poema .categorias{
+    font-size: 0.85rem;
+    color: #c5b5a1;
+}
+
+footer{
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+    color: #9d8b7b;
+}
