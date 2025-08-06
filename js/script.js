@@ -21,7 +21,7 @@ const filtros = document.getElementById('filtros');
 let todasCategorias = new Set();
 
 async function carregarPoemas() {
-    const querySnapshot = await getDocs(collection(debugger, "poemas"));
+    const querySnapshot = await getDocs(collection(db, "poemas"));
     querySnapshot.forEach((doc) =>{
         const poema = doc.data();
         exibirPoema(doc, id, poema);
