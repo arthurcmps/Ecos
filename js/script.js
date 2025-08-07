@@ -2,21 +2,16 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCEjELHbZt3SnIzyGvh6Gp5DES9f0FOOf4",
-  authDomain: "ecos-a42d7.firebaseapp.com",
-  projectId: "ecos-a42d7",
-  storageBucket: "ecos-a42d7.firebasestorage.app",
-  messagingSenderId: "630051349825",
-  appId: "1:630051349825:web:6e003b234d717545f22dc0",
-  measurementId: "G-HFDV2SF3DG"
+  apiKey: "AIzaSyAy0Q4pK0oigiRUVMRFEm8QQsU5zvJeqHI",
+  authDomain: "ecos-4f84d.firebaseapp.com",
+  projectId: "ecos-4f84d",
+  storageBucket: "ecos-4f84d.firebasestorage.app",
+  messagingSenderId: "145323796661",
+  appId: "1:145323796661:web:e53bd8a7cb2fa37204b6fc"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
-const listaPoemas = document.getElementById('lista-poema');
-const filtros = document.getElementById('filtros');
+const db = getFirestore(app);
 
 let todasCategorias = new Set();
 

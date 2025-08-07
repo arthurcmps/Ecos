@@ -11,14 +11,18 @@ const firebaseConfig = {
   measurementId: "G-HFDV2SF3DG"
 };
 
+// Inicializa Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Pega o ID do poema da URL
 const urlParams = new URLSearchParams(window.location.search);
 const poemaId = urlParams.get("id");
 
+// Seleciona o container onde o poema será exibido
 const container = document.getElementById("poema");
 
+// Carrega o poema com base no ID
 async function carregarPoema() {
   if (!poemaId) {
     container.innerHTML = "<p>Poema não encontrado.</p>";
@@ -36,6 +40,7 @@ async function carregarPoema() {
   }
 }
 
+// Exibe o poema na tela
 function exibirPoema({ titulo, texto, categorias, data }) {
   const dataFormatada = data?.toDate().toLocaleDateString("pt-BR") || "Data desconhecida";
 
