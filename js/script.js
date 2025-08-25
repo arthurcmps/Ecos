@@ -1,33 +1,44 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+// js/script.js
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAy0Q4pK0oigiRUVMRFEm8QQsU5zvJeqHI",
-  authDomain: "ecos-4f84d.firebaseapp.com",
-  projectId: "ecos-4f84d",
-  storageBucket: "ecos-4f84d.firebasestorage.app",
-  messagingSenderId: "145323796661",
-  appId: "1:145323796661:web:e53bd8a7cb2fa37204b6fc"
-};
+import { db } from './firebase-config.js';
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const listaPoemas = document.getElementById('lista-poemas');
+const filtros = document.getElementById('filtros');
+const loadingMessage = document.getElementById('loading-message');
 
 let todasCategorias = new Set();
 
 async function carregarPoemas() {
-    const querySnapshot = await getDocs(collection(db, "poemas"));
-    querySnapshot.forEach((doc) =>{
-        const poema = doc.data();
-        exibirPoema(doc, id, poema);
-        poema.categorias.forEach(cat => todasCategorias.add(cat));
-    });
-    criarBotoesFiltros(Array.from(todasCategorias));
+    try {
+        const querySnapshot = await getDocs(collection(db, "poemas"));
+        
+        // Esconde a mensagem de "carregando" apenas quando há poemas.
+        if (loadingMessage) {
+           loadingMessage.style.display = 'none';
+        }
+        
+        querySnapshot.forEach((doc) =>{
+            const poema = doc.data();
+            // CORREÇÃO: Passando doc.id e o objeto poema corretamente.
+            exibirPoema(doc.id, poema);
+            poema.categorias.forEach(cat => todasCategorias.add(cat));
+        });
+        
+        criarBotoesFiltro(Array.from(todasCategorias));
+    
+    } catch (error) {
+        console.error("Erro ao carregar poemas: ", error);
+        if (loadingMessage) {
+            loadingMessage.innerText = "Falha ao carregar poemas. Por favor, tente novamente mais tarde.";
+        }
+    }
 }
 
 function exibirPoema(id, {titulo, texto, categorias}){
     const div = document.createElement('div');
     div.className = 'poema';
+    // Adicionamos o ID do documento ao link
     div.innerHTML = `
     <h2><a href="poema.html?id=${id}">${titulo}</a></h2>
     <p>${texto.substring(0, 150)}...</p>
@@ -37,8 +48,8 @@ function exibirPoema(id, {titulo, texto, categorias}){
 }
 
 function criarBotoesFiltro(categorias) {
-  filtros.innerHTML = '<button onclick="window.location.reload()">Todos</button>';
-  categorias.forEach(cat => {
+  filtros.innerHTML = '<button onclick="filtrarPoemas(\'Todos\')">Todos</button>';
+  categorias.sort().forEach(cat => { // .sort() para ordem alfabética
     const btn = document.createElement('button');
     btn.textContent = cat;
     btn.onclick = () => filtrarPoemas(cat);
@@ -49,8 +60,12 @@ function criarBotoesFiltro(categorias) {
 function filtrarPoemas(categoria) {
   const poemas = document.querySelectorAll('.poema');
   poemas.forEach(poema => {
-    const textoCategorias = poema.querySelector('.categorias').textContent;
-    poema.style.display = textoCategorias.includes(categoria) ? 'block' : 'none';
+    if (categoria === 'Todos') {
+        poema.style.display = 'block';
+    } else {
+        const textoCategorias = poema.querySelector('.categorias').textContent;
+        poema.style.display = textoCategorias.includes(categoria) ? 'block' : 'none';
+    }
   });
 }
 
