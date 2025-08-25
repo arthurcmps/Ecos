@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Ecos</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/admin.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>PAINEL DE ADMINISTRAÇÃO</h1>
+    <p class="subtitulo">Adicionar novo poema</p>
+  </header>
+
+  <main>
+    <div class="admin-container">
+      <form id="form-poema">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" placeholder="Título do poema" required>
+
+        <label for="categorias">Categorias</label>
+        <input type="text" id="categorias" placeholder="Ex: amor, ancestralidade, natureza" required>
+        <small>Separe as categorias por vírgula.</small>
+
+        <label for="texto">Texto do Poema</label>
+        <textarea id="texto" placeholder="Escreva o poema aqui..." rows="15" required></textarea>
+
+        <button type="submit">Salvar Poema</button>
+      </form>
+      <div id="feedback-message" class="feedback"></div>
+      <a href="index.html" class="link-voltar">← Voltar para o site</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Obafemi Sankofa - Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
