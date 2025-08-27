@@ -1,108 +1,114 @@
+// js/script.js
+
 import { db } from './firebase-config.js';
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, getDocs, query, orderBy, limit, startAfter, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const listaPoemas = document.getElementById('lista-poemas');
-const filtros = document.getElementById('filtros');
 const loadingMessage = document.getElementById('loading-message');
+const paginacaoContainer = document.getElementById('paginacao-container');
+const formBusca = document.getElementById('form-busca');
+const campoBusca = document.getElementById('campo-busca');
 
-let todasCategorias = new Set();
-let todosOsPoemas = []; // Armazena todos os poemas para evitar múltiplas leituras do DB
+const POEMAS_POR_PAGINA = 5;
+let ultimoPoemaVisivel = null;
+let buscaAtiva = false;
 
-// Função global para ser acessível pelo HTML
-window.filtrarPoemas = (categoria, botaoAtivo) => {
-    const poemasVisiveis = document.querySelectorAll('.poema');
-    let algumPoemaVisivel = false;
+// Função principal que carrega os poemas
+async function carregarPoemas(termoBusca = null) {
+  try {
+    loadingMessage.style.display = 'block';
+    paginacaoContainer.innerHTML = ''; // Limpa o botão de carregar mais
 
-    // Gerencia o estado "ativo" dos botões de filtro
-    document.querySelectorAll('#filtros button').forEach(btn => btn.classList.remove('active'));
-    botaoAtivo.classList.add('active');
-    
-    poemasVisiveis.forEach(poema => {
-        const categoriasDoPoema = poema.dataset.categorias; // Usando data attribute
-        
-        if (categoria === 'Todos' || categoriasDoPoema.includes(categoria)) {
-            poema.style.display = 'block';
-            algumPoemaVisivel = true;
-        } else {
-            poema.style.display = 'none';
-        }
+    let q;
+    const poemasRef = collection(db, "poemas");
+
+    // Monta a query do Firestore
+    if (termoBusca) {
+      // Query para busca (não suporta busca parcial nativamente, mas funciona para correspondência exata ou inicial)
+      q = query(poemasRef,
+        where("titulo", ">=", termoBusca),
+        where("titulo", "<=", termoBusca + '\uf8ff'),
+        orderBy("titulo"),
+        orderBy("data", "desc")
+      );
+    } else {
+      // Query para paginação normal
+      if (ultimoPoemaVisivel) {
+        q = query(poemasRef, orderBy("data", "desc"), startAfter(ultimoPoemaVisivel), limit(POEMAS_POR_PAGINA));
+      } else {
+        q = query(poemasRef, orderBy("data", "desc"), limit(POEMAS_POR_PAGINA));
+      }
+    }
+
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty && listaPoemas.children.length <= 1) { // <=1 para contar a msg de loading
+      listaPoemas.innerHTML = '<p>Nenhum poema encontrado.</p>';
+    }
+
+    querySnapshot.forEach((doc) => {
+      exibirPoema(doc.id, doc.data());
     });
 
-    // Mostra ou esconde a mensagem de "nenhum poema encontrado"
-    let mensagem = document.getElementById('nenhum-poema-encontrado');
-    if (!algumPoemaVisivel) {
-        if (!mensagem) {
-            mensagem = document.createElement('p');
-            mensagem.id = 'nenhum-poema-encontrado';
-            mensagem.textContent = 'Nenhum poema encontrado para esta categoria.';
-            listaPoemas.appendChild(mensagem);
+    // Controla o botão "Carregar Mais"
+    if (!querySnapshot.empty && !termoBusca) {
+        ultimoPoemaVisivel = querySnapshot.docs[querySnapshot.docs.length - 1];
+        if (querySnapshot.docs.length === POEMAS_POR_PAGINA) {
+            const btnCarregarMais = document.createElement('button');
+            btnCarregarMais.textContent = 'Carregar Mais';
+            btnCarregarMais.id = 'btn-carregar-mais';
+            btnCarregarMais.onclick = () => carregarPoemas();
+            paginacaoContainer.appendChild(btnCarregarMais);
         }
-    } else if (mensagem) {
-        mensagem.remove();
     }
-};
 
-async function carregarPoemas() {
-    try {
-        const querySnapshot = await getDocs(collection(db, "poemas"));
-        
-        if (loadingMessage) {
-           loadingMessage.style.display = 'none';
-        }
-        
-        // Limpa a lista antes de adicionar os poemas
-        listaPoemas.innerHTML = '';
-        
-        querySnapshot.forEach((doc) =>{
-            const poema = doc.data();
-            todosOsPoemas.push({ id: doc.id, ...poema }); // Guarda os poemas em um array
-            poema.categorias.forEach(cat => todasCategorias.add(cat));
-        });
-        
-        if (todosOsPoemas.length === 0) {
-            listaPoemas.innerHTML = '<p>Nenhum poema publicado ainda.</p>';
-        } else {
-            todosOsPoemas.forEach(poema => exibirPoema(poema.id, poema));
-            criarBotoesFiltro(Array.from(todasCategorias));
-        }
-    
-    } catch (error) {
-        console.error("Erro ao carregar poemas: ", error);
-        if (loadingMessage) {
-            loadingMessage.innerText = "Falha ao carregar poemas. Por favor, tente novamente mais tarde.";
-        }
-    }
+  } catch (error) {
+    console.error("Erro ao carregar poemas: ", error);
+    listaPoemas.innerHTML = "<p>Falha ao carregar poemas. Tente novamente.</p>";
+  } finally {
+    loadingMessage.style.display = 'none';
+  }
 }
 
-function exibirPoema(id, {titulo, texto, categorias}){
-    const div = document.createElement('div');
-    div.className = 'poema';
-    // Adiciona as categorias como um data attribute para facilitar a filtragem
-    div.dataset.categorias = categorias.join(', ');
-
-    div.innerHTML = `
+function exibirPoema(id, { titulo, texto, categorias }) {
+  const div = document.createElement('div');
+  div.className = 'poema';
+  div.innerHTML = `
     <h2><a href="poema.html?id=${id}">${titulo}</a></h2>
     <p>${texto.substring(0, 150)}...</p>
     <p class="categorias">${categorias.join(', ')}</p>`;
-    
-    listaPoemas.appendChild(div);
+  listaPoemas.appendChild(div);
 }
 
-function criarBotoesFiltro(categorias) {
-    filtros.innerHTML = ''; // Limpa os filtros antes de criar
-    
-    const btnTodos = document.createElement('button');
-    btnTodos.textContent = 'Todos';
-    btnTodos.className = 'active'; // O botão "Todos" começa ativo
-    btnTodos.onclick = (event) => filtrarPoemas('Todos', event.target);
-    filtros.appendChild(btnTodos);
+// Lida com o evento de busca
+formBusca.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const termoBusca = campoBusca.value.trim();
 
-    categorias.sort().forEach(cat => {
-        const btn = document.createElement('button');
-        btn.textContent = cat;
-        btn.onclick = (event) => filtrarPoemas(cat, event.target);
-        filtros.appendChild(btn);
-    });
+  // Se a busca for vazia e uma busca já estava ativa, recarrega tudo
+  if (!termoBusca && buscaAtiva) {
+      buscaAtiva = false;
+      resetarPagina();
+      return;
+  }
+  
+  if (termoBusca) {
+      buscaAtiva = true;
+      resetarPagina(true); // Reseta mantendo o termo de busca
+      carregarPoemas(termoBusca);
+  }
+});
+
+// Reseta a visualização para uma nova busca ou para limpar a busca
+function resetarPagina(mantemBusca = false) {
+    listaPoemas.innerHTML = '';
+    paginacaoContainer.innerHTML = '';
+    ultimoPoemaVisivel = null;
+    if (!mantemBusca) {
+        campoBusca.value = '';
+        carregarPoemas();
+    }
 }
 
+// Inicia o carregamento inicial
 carregarPoemas();
