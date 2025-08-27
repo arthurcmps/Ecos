@@ -1,13 +1,30 @@
+// js/admin.js
+
 import { db, auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, Timestamp, orderBy, query, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ... (todo o código que já tínhamos para os seletores do DOM continua igual)
+// Seletores do DOM
 const conteudoAdmin = document.getElementById('conteudo-admin');
 const userInfo = document.getElementById('user-info');
-// ... etc.
+const formPoema = document.getElementById('form-poema');
+const feedbackMessage = document.getElementById('feedback-message');
+const listaPoemasAdmin = document.getElementById('lista-poemas-admin');
+const formTitle = document.getElementById('form-title');
+const submitButton = formPoema.querySelector('button[type="submit"]');
+const btnCancelarEdicao = document.getElementById('btn-cancelar-edicao');
 
-// Função para verificar a permissão do usuário
+// Função para mostrar feedback ao usuário
+const mostrarFeedback = (mensagem, tipo) => {
+    feedbackMessage.textContent = mensagem;
+    feedbackMessage.className = `feedback ${tipo}`;
+    setTimeout(() => {
+        feedbackMessage.textContent = '';
+        feedbackMessage.className = 'feedback';
+    }, 4000); // Esconde a mensagem após 4 segundos
+};
+
+// Função para verificar se o usuário logado tem a permissão de 'admin'
 async function verificarPermissaoAdmin(user) {
     const userDocRef = doc(db, "usuarios", user.uid);
     const userDoc = await getDoc(userDocRef);
@@ -18,35 +35,30 @@ async function verificarPermissaoAdmin(user) {
     return false; // Não é um admin
 }
 
-// Verifica o estado de autenticação e a permissão
+// Verifica o estado de autenticação e a permissão do usuário
 onAuthStateChanged(auth, async (user) => {
     if (user) {
-        // Usuário está logado, agora vamos verificar se é admin
         const isAdmin = await verificarPermissaoAdmin(user);
         
         if (isAdmin) {
-            // Se for admin, mostra o conteúdo
+            // Se for admin, mostra o conteúdo e carrega os dados
             conteudoAdmin.style.display = 'block';
             userInfo.innerHTML = `
                 <span>Logado como: ${user.email} (Admin)</span>
-                <button id="btn-logout">Sair</button>
+                <button id="btn-logout" class="auth-button secondary">Sair</button>
             `;
             document.getElementById('btn-logout').addEventListener('click', fazerLogout);
             carregarPoemasAdmin();
         } else {
-            // Se não for admin, nega o acesso
-            alert('Acesso negado. Você não tem permissão de administrador.');
+            // Se não for admin, nega o acesso e redireciona
+            alert('Acesso negado. Esta área é restrita para administradores.');
             window.location.href = 'index.html';
         }
     } else {
-        // Usuário não está logado, redireciona para a página de login
+        // Se não houver usuário logado, redireciona para a página de login
         window.location.href = 'login.html';
     }
 });
-
-// O RESTANTE DO CÓDIGO DO admin.js (fazerLogout, carregarPoemasAdmin, o listener do formulário, etc.) CONTINUA EXATAMENTE O MESMO.
-// Não precisa alterar as outras funções que já fizemos.
-// ... (cole o resto do seu código de admin.js aqui)
 
 // Função de Logout
 const fazerLogout = () => {
@@ -134,30 +146,33 @@ formPoema.addEventListener('submit', async (e) => {
         mostrarFeedback('Erro ao salvar o poema.', 'error');
     } finally {
         submitButton.disabled = false;
-        submitButton.textContent = 'Salvar Poema';
+        // O texto do botão será resetado pela função resetarFormulario()
     }
 });
 
 // Preenche o formulário para edição
 async function preencherFormularioParaEdicao(id) {
-    const poemaRef = doc(db, 'poemas', id);
-    const docSnap = await getDocs(collection(db, "poemas"));
-    const poemaDoc = docSnap.docs.find(doc => doc.id === id); // Encontra o documento pelo ID
+    try {
+        const poemaRef = doc(db, 'poemas', id);
+        const docSnap = await getDoc(poemaRef);
 
-    if (poemaDoc) {
-        const poema = poemaDoc.data();
-        document.getElementById('poema-id').value = poemaDoc.id;
-        document.getElementById('titulo').value = poema.titulo;
-        document.getElementById('texto').value = poema.texto;
-        document.getElementById('categorias').value = poema.categorias.join(', ');
+        if (docSnap.exists()) {
+            const poema = docSnap.data();
+            document.getElementById('poema-id').value = docSnap.id;
+            document.getElementById('titulo').value = poema.titulo;
+            document.getElementById('texto').value = poema.texto;
+            document.getElementById('categorias').value = poema.categorias.join(', ');
 
-        formTitle.textContent = 'Editando Poema';
-        submitButton.textContent = 'Atualizar Poema';
-        btnCancelarEdicao.style.display = 'inline-block';
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Rola para o topo
+            formTitle.textContent = 'Editando Poema';
+            submitButton.textContent = 'Atualizar Poema';
+            btnCancelarEdicao.style.display = 'inline-block';
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Rola para o topo para focar no formulário
+        }
+    } catch (error) {
+        console.error("Erro ao buscar poema para edição: ", error);
+        mostrarFeedback('Não foi possível carregar os dados do poema.', 'error');
     }
 }
-
 
 // Exclui um poema
 async function excluirPoema(id) {
@@ -166,6 +181,7 @@ async function excluirPoema(id) {
             await deleteDoc(doc(db, 'poemas', id));
             mostrarFeedback('Poema excluído com sucesso!', 'success');
             await carregarPoemasAdmin();
+            resetarFormulario(); // Limpa o formulário caso o poema excluído estivesse em edição
         } catch (error) {
             console.error("Erro ao excluir poema: ", error);
             mostrarFeedback('Erro ao excluir o poema.', 'error');
