@@ -10,31 +10,42 @@
 <body>
   <header>
     <h1>PAINEL DE ADMINISTRAÇÃO</h1>
-    <p class="subtitulo">Adicionar novo poema</p>
+    <div id="user-info">
+      </div>
   </header>
 
-  <main>
-    <div class="admin-container">
-      <form id="form-poema">
-        <label for="titulo">Título</label>
-        <input type="text" id="titulo" placeholder="Título do poema" required>
+  <main class="admin-container">
+    <div id="conteudo-admin" style="display: none;"> <section id="form-section">
+        <h2 id="form-title">Adicionar Novo Poema</h2>
+        <form id="form-poema">
+          <input type="hidden" id="poema-id">
 
-        <label for="categorias">Categorias</label>
-        <input type="text" id="categorias" placeholder="Ex: amor, ancestralidade, natureza" required>
-        <small>Separe as categorias por vírgula.</small>
+          <label for="titulo">Título</label>
+          <input type="text" id="titulo" placeholder="Título do poema" required>
 
-        <label for="texto">Texto do Poema</label>
-        <textarea id="texto" placeholder="Escreva o poema aqui..." rows="15" required></textarea>
+          <label for="categorias">Categorias</label>
+          <input type="text" id="categorias" placeholder="Ex: amor, ancestralidade, natureza" required>
+          <small>Separe as categorias por vírgula.</small>
 
-        <button type="submit">Salvar Poema</button>
-      </form>
-      <div id="feedback-message" class="feedback"></div>
-      <a href="index.html" class="link-voltar">← Voltar para o site</a>
+          <label for="texto">Texto do Poema</label>
+          <textarea id="texto" placeholder="Escreva o poema aqui..." rows="15" required></textarea>
+
+          <div class="form-buttons">
+            <button type="submit">Salvar Poema</button>
+            <button type="button" id="btn-cancelar-edicao" style="display: none;">Cancelar Edição</button>
+          </div>
+        </form>
+        <div id="feedback-message" class="feedback"></div>
+      </section>
+      
+      <hr class="admin-divider">
+
+      <section id="manage-section">
+        <h2>Gerenciar Poemas</h2>
+        <div id="lista-poemas-admin">
+          </div>
+      </section>
     </div>
   </main>
-
-  <footer>
-    <p>&copy; 2025 Obafemi Sankofa - Todos os direitos reservados.</p>
-  </footer>
 </body>
 </html>
