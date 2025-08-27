@@ -1,5 +1,3 @@
-// js/poema.js
-
 import { db } from './firebase-config.js';
 import { doc, getDoc, collection, addDoc, query, orderBy, getDocs, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -38,7 +36,6 @@ async function carregarPoema() {
 
 // Exibe o poema na tela
 function exibirPoema({ titulo, texto, categorias, data }) {
-  // Verifica se 'data' existe e é um objeto Timestamp do Firebase
   const dataFormatada = (data && data.toDate) ? data.toDate().toLocaleDateString("pt-BR") : "Data desconhecida";
 
   poemaContainer.innerHTML = `
@@ -52,13 +49,12 @@ function exibirPoema({ titulo, texto, categorias, data }) {
 async function carregarComentarios() {
     listaComentarios.innerHTML = "<h4>Carregando comentários...</h4>";
     
-    // Caminho para a subcoleção de comentários
     const comentariosRef = collection(db, "poemas", poemaId, "comentarios");
     const q = query(comentariosRef, orderBy("data", "desc"));
 
     const querySnapshot = await getDocs(q);
     
-    listaComentarios.innerHTML = ""; // Limpa a lista antes de carregar
+    listaComentarios.innerHTML = "";
     
     if (querySnapshot.empty) {
         listaComentarios.innerHTML = "<p>Nenhum comentário ainda. Seja o primeiro a comentar!</p>";
@@ -78,11 +74,17 @@ async function carregarComentarios() {
 
 // Adiciona um novo comentário ao Firestore
 async function adicionarComentario(event) {
-    event.preventDefault(); // Impede o recarregamento da página
+    event.preventDefault();
 
     const nomeInput = document.getElementById("nome");
     const mensagemInput = document.getElementById("mensagem");
     const submitButton = formComentario.querySelector('button');
+
+    // Validação para campos vazios, usando trim() para remover espaços em branco
+    if (!nomeInput.value.trim() || !mensagemInput.value.trim()) {
+        alert("Por favor, preencha seu nome e a mensagem.");
+        return;
+    }
 
     submitButton.disabled = true;
     submitButton.textContent = 'Enviando...';
@@ -91,11 +93,16 @@ async function adicionarComentario(event) {
         await addDoc(collection(db, "poemas", poemaId, "comentarios"), {
             nome: nomeInput.value,
             mensagem: mensagemInput.value,
-            data: Timestamp.now() // Usa o timestamp do servidor Firebase
+            data: Timestamp.now()
         });
         
-        formComentario.reset(); // Limpa o formulário
-        await carregarComentarios(); // Recarrega a lista de comentários
+        formComentario.reset();
+        await carregarComentarios();
+        
+        // Faz a página rolar para o último comentário adicionado (o primeiro na lista visual)
+        if (listaComentarios.firstChild) {
+            listaComentarios.firstChild.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     
     } catch (e) {
         console.error("Erro ao adicionar comentário: ", e);
@@ -106,10 +113,8 @@ async function adicionarComentario(event) {
     }
 }
 
-// Adiciona o listener de evento 'submit' ao formulário
 if (formComentario) {
     formComentario.addEventListener('submit', adicionarComentario);
 }
 
-// Inicia o carregamento do poema e comentários
 carregarPoema();

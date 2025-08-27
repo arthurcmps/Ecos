@@ -47,6 +47,12 @@ h1{
     background-color: #a87d56;
 }
 
+/* NOVO ESTILO PARA O FILTRO ATIVO */
+#filtros button.active {
+  background-color: #a87d56;
+  box-shadow: 0 0 10px rgba(212, 191, 163, 0.4);
+}
+
 #lista-poemas{
     padding: 2rem;
     display: grid;
