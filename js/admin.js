@@ -1,42 +1,52 @@
-// js/admin.js
-
 import { db, auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, Timestamp, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, Timestamp, orderBy, query, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Seletores do DOM
+// ... (todo o código que já tínhamos para os seletores do DOM continua igual)
 const conteudoAdmin = document.getElementById('conteudo-admin');
 const userInfo = document.getElementById('user-info');
-const formPoema = document.getElementById('form-poema');
-const feedbackMessage = document.getElementById('feedback-message');
-const listaPoemasAdmin = document.getElementById('lista-poemas-admin');
-const formTitle = document.getElementById('form-title');
-const submitButton = formPoema.querySelector('button[type="submit"]');
-const btnCancelarEdicao = document.getElementById('btn-cancelar-edicao');
+// ... etc.
 
-// Função para mostrar feedback ao usuário
-const mostrarFeedback = (mensagem, tipo) => {
-    feedbackMessage.textContent = mensagem;
-    feedbackMessage.className = `feedback ${tipo}`;
-};
+// Função para verificar a permissão do usuário
+async function verificarPermissaoAdmin(user) {
+    const userDocRef = doc(db, "usuarios", user.uid);
+    const userDoc = await getDoc(userDocRef);
 
-// Verifica o estado de autenticação do usuário
-onAuthStateChanged(auth, (user) => {
+    if (userDoc.exists() && userDoc.data().role === 'admin') {
+        return true; // É um admin
+    }
+    return false; // Não é um admin
+}
+
+// Verifica o estado de autenticação e a permissão
+onAuthStateChanged(auth, async (user) => {
     if (user) {
-        // Usuário está logado
-        conteudoAdmin.style.display = 'block';
-        userInfo.innerHTML = `
-            <span>Logado como: ${user.email}</span>
-            <button id="btn-logout">Sair</button>
-        `;
-        document.getElementById('btn-logout').addEventListener('click', fazerLogout);
+        // Usuário está logado, agora vamos verificar se é admin
+        const isAdmin = await verificarPermissaoAdmin(user);
         
-        carregarPoemasAdmin(); // Carrega os poemas no painel
+        if (isAdmin) {
+            // Se for admin, mostra o conteúdo
+            conteudoAdmin.style.display = 'block';
+            userInfo.innerHTML = `
+                <span>Logado como: ${user.email} (Admin)</span>
+                <button id="btn-logout">Sair</button>
+            `;
+            document.getElementById('btn-logout').addEventListener('click', fazerLogout);
+            carregarPoemasAdmin();
+        } else {
+            // Se não for admin, nega o acesso
+            alert('Acesso negado. Você não tem permissão de administrador.');
+            window.location.href = 'index.html';
+        }
     } else {
         // Usuário não está logado, redireciona para a página de login
         window.location.href = 'login.html';
     }
 });
+
+// O RESTANTE DO CÓDIGO DO admin.js (fazerLogout, carregarPoemasAdmin, o listener do formulário, etc.) CONTINUA EXATAMENTE O MESMO.
+// Não precisa alterar as outras funções que já fizemos.
+// ... (cole o resto do seu código de admin.js aqui)
 
 // Função de Logout
 const fazerLogout = () => {
