@@ -414,3 +414,157 @@ footer{
     background-color: #3b2f2f;
     color: #f5f0e1;
 }
+
+/* css/style.css (adicionar ao final) */
+
+/* --- Estilos para Páginas de Autenticação (Login, Criar Conta, etc.) --- */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.auth-card {
+    background-color: #2d2420;
+    padding: 2.5rem;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid #444;
+}
+
+.auth-title-link {
+    text-decoration: none;
+    color: #f5f0e1;
+}
+
+.auth-card h1 {
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: #c5b5a1;
+}
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 1.5rem;
+}
+
+.auth-card label {
+    font-size: 0.9rem;
+    color: #c19a6b;
+    margin-bottom: -1rem;
+}
+
+.auth-card input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.auth-card button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+}
+
+.form-links {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.form-links a {
+    color: #c19a6b;
+    text-decoration: none;
+}
+
+.form-links a:hover {
+    text-decoration: underline;
+}
+
+.form-links span {
+    color: #9d8b7b;
+    margin: 0 0.5rem;
+}
+
+/* --- Estilos para a Área de Autenticação no Cabeçalho --- */
+#user-auth-status {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 0.9rem;
+}
+
+#user-auth-status .auth-links,
+#user-auth-status .user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.auth-button {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    border: 1px solid transparent;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.auth-button { /* Botão primário (Login) */
+    background-color: #c19a6b;
+    color: #1f1b18;
+}
+
+.auth-button:hover {
+    background-color: #a87d56;
+}
+
+.auth-button.secondary { /* Botão secundário (Criar Conta) */
+    background-color: transparent;
+    border-color: #c19a6b;
+    color: #c19a6b;
+}
+
+.auth-button.secondary:hover {
+    background-color: #c19a6b;
+    color: #1f1b18;
+}
+
+#user-auth-status .user-info span {
+    color: #d4bfa3;
+}
+
+#btn-logout {
+    background: none;
+    border: 1px solid #9d8b7b;
+    color: #9d8b7b;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+#btn-logout:hover {
+    border-color: #c19a6b;
+    color: #c19a6b;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 600px) {
+    #user-auth-status {
+        position: static;
+        margin-bottom: 1rem;
+        justify-content: center;
+        display: flex;
+    }
+    header {
+        padding-top: 1rem;
+    }
+}

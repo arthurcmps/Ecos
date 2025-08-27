@@ -1,5 +1,8 @@
-import { db } from './firebase-config.js';
+// js/poema.js
+
+import { db, auth } from './firebase-config.js'; // Adicionamos 'auth'
 import { doc, getDoc, collection, addDoc, query, orderBy, getDocs, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"; // Nova importação
 
 // Pega o ID do poema da URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -9,6 +12,22 @@ const poemaId = urlParams.get("id");
 const poemaContainer = document.getElementById("poema");
 const formComentario = document.getElementById("form-comentario");
 const listaComentarios = document.getElementById("lista-comentarios");
+const nomeInput = document.getElementById("nome"); // Movido para o escopo global
+
+// --- NOVA FUNÇÃO ---
+// Gerencia o estado do campo de nome baseado no status de login do usuário
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // Se o usuário está logado, preenche o nome e desabilita o campo
+        nomeInput.value = user.email.split('@')[0]; // Pega a parte do e-mail antes do @
+        nomeInput.disabled = true;
+    } else {
+        // Se não há usuário logado, garante que o campo esteja vazio e habilitado
+        nomeInput.value = '';
+        nomeInput.disabled = false;
+    }
+});
+// --- FIM DA NOVA FUNÇÃO ---
 
 // Carrega o poema com base no ID
 async function carregarPoema() {
@@ -76,11 +95,10 @@ async function carregarComentarios() {
 async function adicionarComentario(event) {
     event.preventDefault();
 
-    const nomeInput = document.getElementById("nome");
     const mensagemInput = document.getElementById("mensagem");
     const submitButton = formComentario.querySelector('button');
 
-    // Validação para campos vazios, usando trim() para remover espaços em branco
+    // Validação para campos vazios
     if (!nomeInput.value.trim() || !mensagemInput.value.trim()) {
         alert("Por favor, preencha seu nome e a mensagem.");
         return;
@@ -91,15 +109,15 @@ async function adicionarComentario(event) {
 
     try {
         await addDoc(collection(db, "poemas", poemaId, "comentarios"), {
-            nome: nomeInput.value,
+            nome: nomeInput.value, // O valor já estará correto (do usuário logado ou do que foi digitado)
             mensagem: mensagemInput.value,
             data: Timestamp.now()
         });
         
-        formComentario.reset();
+        // Limpa apenas a mensagem, pois o nome pode ser mantido se o usuário estiver logado
+        mensagemInput.value = ''; 
         await carregarComentarios();
         
-        // Faz a página rolar para o último comentário adicionado (o primeiro na lista visual)
         if (listaComentarios.firstChild) {
             listaComentarios.firstChild.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
@@ -113,8 +131,10 @@ async function adicionarComentario(event) {
     }
 }
 
+// Adiciona o listener de evento 'submit' ao formulário
 if (formComentario) {
     formComentario.addEventListener('submit', adicionarComentario);
 }
 
+// Inicia o carregamento da página
 carregarPoema();
