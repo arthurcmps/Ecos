@@ -34,7 +34,7 @@ form.addEventListener('submit', async (e) => {
 
         // Redireciona para a página inicial após 3 segundos
         setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = '../index.html';
         }, 3000);
 
     } catch (error) {

@@ -52,7 +52,7 @@ onAuthStateChanged(auth, async (user) => {
         } else {
             // Se não for admin, nega o acesso e redireciona
             alert('Acesso negado. Esta área é restrita para administradores.');
-            window.location.href = 'index.html';
+            window.location.href = '../index.html';
         }
     } else {
         // Se não houver usuário logado, redireciona para a página de login

@@ -22,8 +22,8 @@ onAuthStateChanged(auth, (user) => {
         // Usuário está DESLOGADO
         userAuthStatus.innerHTML = `
             <div class="auth-links">
-                <a href="login.html" class="auth-button">Login</a>
-                <a href="criar-usuario.html" class="auth-button secondary">Criar Conta</a>
+                <a href="ecos/login.html" class="auth-button">Login</a>
+                <a href="ecos/criar-usuario.html" class="auth-button secondary">Criar Conta</a>
             </div>
         `;
     }
