@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Ecos</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -24,6 +24,12 @@
       
       <p id="feedback-message" class="feedback"></p>
 
+      <div class="auth-divider">ou</div>
+
+      <button id="btn-google-login" class="auth-card button btn-google">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+        Entrar com Google
+      </button>
       <div class="form-links">
         <a href="criar-conta.html">Criar uma conta</a>
       </div>
@@ -31,6 +37,5 @@
   </div>
 
   <script type="module" src="js/auth.js"></script>
-  <script type="module" src="js/firebase-config.js"></script>
 </body>
 </html>
