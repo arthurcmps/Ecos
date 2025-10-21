@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resetar Senha - Ecos</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <h1>Resetar Senha</h1>
+      <p class="auth-subtitle">
+        Digite seu email e enviaremos um link para redefinir sua senha.
+      </p>
+      
+      <form id="form-resetar-senha">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <button type="submit" id="btn-submit">Enviar link</button>
+      </form>
+      
+      <p id="feedback-message" class="feedback"></p>
+
+      <div class="form-links">
+        <a href="login.html">Voltar para o login</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>

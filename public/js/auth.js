@@ -4,14 +4,16 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  updateProfile // 2. IMPORTAR 'updateProfile'
+  updateProfile,
+  sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; // 3. IMPORTAR 'doc' e 'setDoc'
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ... (seletores e função setFeedback não mudam) ...
+// --- Seletores ---
 const formLogin = document.getElementById('form-login');
 const formCriarConta = document.getElementById('form-criar-conta');
 const btnGoogleLogin = document.getElementById('btn-google-login');
+const formResetarSenha = document.getElementById('form-resetar-senha'); // 2. SELECIONAR NOVO FORM
 const feedbackMessage = document.getElementById('feedback-message');
 const btnSubmit = document.getElementById('btn-submit');
 
@@ -68,7 +70,7 @@ if (formCriarConta) {
         return;
     }
 
-    // 6. VALIDAR A IDADE
+    // VALIDAR A IDADE
     if (!isUserOver18(dataNascimento)) {
       setFeedback("Você deve ter pelo menos 18 anos para criar uma conta.");
       return;
@@ -78,17 +80,17 @@ if (formCriarConta) {
     setFeedback("Criando conta...", false);
 
     try {
-      // 7. CRIAR O USUÁRIO no Auth (como antes)
+      // CRIAR O USUÁRIO no Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
       const user = userCredential.user;
       const nomeCompleto = `${nome} ${sobrenome}`;
 
-      // 8. ATUALIZAR O PERFIL (Salva o nome no Firebase Auth)
+      // ATUALIZAR O PERFIL (Salva o nome no Firebase Auth)
       await updateProfile(user, {
         displayName: nomeCompleto
       });
 
-      // 9. SALVAR DADOS NO FIRESTORE (Cria um documento para o usuário)
+      // SALVAR DADOS NO FIRESTORE (Cria um documento para o usuário)
       // Isso salva os dados extras (como data de nasc.)
       const userDocRef = doc(db, "users", user.uid); // (db, 'nome_da_colecao', 'id_do_documento')
       
@@ -145,7 +147,7 @@ if (formLogin) {
   });
 }
 
-// 4. NOVA LÓGICA PARA O LOGIN COM GOOGLE
+// NOVA LÓGICA PARA O LOGIN COM GOOGLE
 if (btnGoogleLogin) {
   btnGoogleLogin.addEventListener('click', async () => {
     const provider = new GoogleAuthProvider(); // Cria uma instância do provedor
@@ -163,6 +165,38 @@ if (btnGoogleLogin) {
       } else {
         setFeedback("Ocorreu um erro ao tentar logar com o Google.");
       }
+    }
+  });
+}
+
+// ADICIONAR NOVO BLOCO PARA RESET DE SENHA
+if (formResetarSenha) {
+  formResetarSenha.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    
+    if (!email) {
+      setFeedback("Por favor, informe seu email.", true);
+      return;
+    }
+
+    btnSubmit.disabled = true;
+    setFeedback("Enviando...", false);
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      // Mensagem de sucesso. Não desabilitamos o botão para que possam tentar de novo.
+      setFeedback("Email enviado! Verifique sua caixa de entrada (e spam).", false);
+      btnSubmit.disabled = false; 
+    
+    } catch (error) {
+      console.error(error.code, error.message);
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-email') {
+        setFeedback("Nenhuma conta encontrada com este email.", true);
+      } else {
+        setFeedback("Erro ao enviar o email. Tente novamente.", true);
+      }
+      btnSubmit.disabled = false;
     }
   });
 }

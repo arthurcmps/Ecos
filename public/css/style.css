@@ -189,7 +189,7 @@ header h1 {
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 0.5rem; /* Espaço entre label e input */
+    gap: 0.9rem; /* Espaço entre label e input */
 }
 
 /* Ajuste no formulário e labels (Substitua as regras existentes se já tiver) */
@@ -210,4 +210,19 @@ header h1 {
 /* Garante que o calendário do input de data seja legível */
 .auth-card input[type="date"] {
     color-scheme: dark;
+}
+
+/* Novo: Subtítulo para cartões de auth (como em resetar-senha) */
+.auth-subtitle {
+    color: #c5b5a1; 
+    margin-top: -1rem; 
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* Novo: Separador nos links de formulário */
+.form-links span {
+    color: #9d8b7b;
+    margin: 0 0.5rem;
 }
