@@ -1,0 +1,175 @@
+[debug] [2025-09-16T06:15:17.096Z] ----------------------------------------------------------------------
+[debug] [2025-09-16T06:15:17.100Z] Command:       /nix/store/ixbb20farqh1f4fqbmsn6b1ixn8mc8ij-nodejs-20.18.1/bin/node /home/user/.global_modules/bin/firebase serve
+[debug] [2025-09-16T06:15:17.101Z] CLI Version:   14.16.0
+[debug] [2025-09-16T06:15:17.101Z] Platform:      linux
+[debug] [2025-09-16T06:15:17.101Z] Node Version:  v20.18.1
+[debug] [2025-09-16T06:15:17.101Z] Time:          Tue Sep 16 2025 06:15:17 GMT+0000 (Coordinated Universal Time)
+[debug] [2025-09-16T06:15:17.102Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-16T06:15:17.667Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:17.668Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:17.674Z] >>> [apiv2][query] GET https://monospace-pa.googleapis.com/v1/workspaces/ecos-82423428 [none]
+[debug] [2025-09-16T06:15:18.545Z] <<< [apiv2][status] GET https://monospace-pa.googleapis.com/v1/workspaces/ecos-82423428 200
+[debug] [2025-09-16T06:15:18.546Z] <<< [apiv2][body] GET https://monospace-pa.googleapis.com/v1/workspaces/ecos-82423428 {"workspaceId":"ecos-82423428","name":"Ecos","workspaceRedirectUrl":"firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev","status":"WORKSPACE_STATUS_RUNNING","lastAccessDatetime":"2025-09-16T05:16:32.167148Z","workspaceTemplate":"WORKSPACE_TEMPLATE_BLANK_WEB","owner":"SELF","serviceAccountEmail":"msp-8578991658828475607@monospace-1.iam.gserviceaccount.com","gitRepoUrl":"https://github.com/arthurcmps/Ecos","enableNix":true,"ownerEmail":"arthur.felipe1993@gmail.com","workstationAccessToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Nsb3VkLmdvb2dsZS5jb20vd29ya3N0YXRpb25zIiwiYXVkIjoiZmlyZWJhc2UtZWNvcy0xNzU3OTk0NDc2Mjk0LmNsdXN0ZXItbHI2ZHdsYzJsemJjY3RxaHFvcmF4NXptcm8uY2xvdWR3b3Jrc3RhdGlvbnMuZGV2IiwiaWF0IjoxNzU4MDAzMzE4LCJleHAiOjE3NTgwODk3MTh9.XrB5Q3Wnv-Nvu-ftu0pYBIq9Okb8zZ6F7Z0vOqJ8WGN6WWwQqGDg94AIjjDJfQCWb16ZwyBqkMaBACYtowtOLPn7D8b7zOLTl5KXQQ0ryUp0oea__bxwBHyV94i21Pw7Kdj8OcV8GDC28SDclc0y9KxbMZW3sQfJPGMdetrZPMzpftMPZaT8xrGYRlNDzVuPJUOzz7lUPwA8QGUwGhqCeRDj0D1CZgdIr_MMnp88_vZg-Sb__cWdkOQVUTDvWl_UgFzt46GVvFJHQ2QVuSkQWv1HyLCxdCovjGwrVZIzylY55btZ627zMTWUi2HLDpYvQ9C3dI52CxedJY4ZF0xKoQ","firebaseProjectId":"ecos-4f84d"}
+[debug] [2025-09-16T06:15:18.550Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2025-09-16T06:15:18.551Z] > authorizing via signed-in user (arthur.felipe1993@gmail.com)
+[debug] [2025-09-16T06:15:18.551Z] [iam] checking project ecos-4f84d for permissions ["firebase.projects.get"]
+[debug] [2025-09-16T06:15:18.552Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:18.552Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:18.553Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecos-4f84d:testIamPermissions [none]
+[debug] [2025-09-16T06:15:18.553Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecos-4f84d:testIamPermissions x-goog-quota-user=projects/ecos-4f84d
+[debug] [2025-09-16T06:15:18.553Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecos-4f84d:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-09-16T06:15:18.614Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecos-4f84d:testIamPermissions 200
+[debug] [2025-09-16T06:15:18.615Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecos-4f84d:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-09-16T06:15:18.618Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:18.619Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:18.619Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/ecos-4f84d [none]
+[debug] [2025-09-16T06:15:18.681Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/ecos-4f84d 200
+[debug] [2025-09-16T06:15:18.681Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/ecos-4f84d {"projectNumber":"145323796661","projectId":"ecos-4f84d","lifecycleState":"ACTIVE","name":"ecos","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-08-07T03:27:34.958731Z"}
+[info] 
+[info] === Serving from '/home/user/Ecos'...
+[info] 
+[debug] [2025-09-16T06:15:18.690Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:18.690Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:18.699Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/ecos-4f84d/sites 
+[debug] [2025-09-16T06:15:19.023Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/ecos-4f84d/sites 200
+[debug] [2025-09-16T06:15:19.024Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/ecos-4f84d/sites {"sites":[{"name":"projects/ecos-4f84d/sites/ecos-4f84d","defaultUrl":"https://ecos-4f84d.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2025-09-16T06:15:19.026Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:19.026Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:19.027Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecos-4f84d/webApps/-/config [none]
+[debug] [2025-09-16T06:15:19.448Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecos-4f84d/webApps/-/config 200
+[debug] [2025-09-16T06:15:19.448Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecos-4f84d/webApps/-/config {"projectId":"ecos-4f84d","appId":"1:145323796661:web:e53bd8a7cb2fa37204b6fc","databaseURL":"https://ecos-4f84d-default-rtdb.firebaseio.com","storageBucket":"ecos-4f84d.firebasestorage.app","apiKey":"AIzaSyAy0Q4pK0oigiRUVMRFEm8QQsU5zvJeqHI","authDomain":"ecos-4f84d.firebaseapp.com","messagingSenderId":"145323796661"}
+[debug] [2025-09-16T06:15:19.471Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:19.472Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:19.473Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecos-4f84d [none]
+[debug] [2025-09-16T06:15:19.721Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecos-4f84d 200
+[debug] [2025-09-16T06:15:19.723Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecos-4f84d {"projectId":"ecos-4f84d","projectNumber":"145323796661","displayName":"ecos","name":"projects/ecos-4f84d","resources":{"hostingSite":"ecos-4f84d","realtimeDatabaseInstance":"ecos-4f84d-default-rtdb"},"state":"ACTIVE","etag":"1_f3eba8c2-f98f-4543-9c00-3eade60a67da"}
+[info] i  hosting[ecos-4f84d]: Serving hosting files from: ecos {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mecos\u001b[22m"}}
+[info] ✔  hosting[ecos-4f84d]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[warn] ⚠  functions: Application Default Credentials detected. Non-emulated services will access production using these credentials. Be careful! {"metadata":{"emulator":{"name":"functions"},"message":"Application Default Credentials detected. Non-emulated services will access production using these credentials. Be careful!"}}
+[debug] [2025-09-16T06:15:25.567Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:25.567Z] Checked if tokens are valid: true, expires at: 1758005948699
+[debug] [2025-09-16T06:15:25.570Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecos-4f84d/adminSdkConfig [none]
+[debug] [2025-09-16T06:15:25.879Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecos-4f84d/adminSdkConfig 200
+[debug] [2025-09-16T06:15:25.879Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecos-4f84d/adminSdkConfig {"projectId":"ecos-4f84d","databaseURL":"https://ecos-4f84d-default-rtdb.firebaseio.com","storageBucket":"ecos-4f84d.firebasestorage.app"}
+[info] i  functions: Watching "/home/user/Ecos/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/home/user/Ecos/functions\" for Cloud Functions..."}}
+[debug] [2025-09-16T06:15:25.931Z] Validating nodejs source
+[debug] [2025-09-16T06:15:27.544Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "fuse.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2025-09-16T06:15:27.545Z] Building nodejs source
+[debug] [2025-09-16T06:15:27.546Z] Failed to find version of module node: reached end of search path /home/user/Ecos/functions/node_modules
+[warn] ⚠  functions: Your requested "node" version "22" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-09-16T06:15:27.551Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-09-16T06:15:27.568Z] Found firebase-functions binary at '/home/user/Ecos/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8159
+
+[debug] [2025-09-16T06:15:28.368Z] Got response from /__/functions.yaml {"endpoints":{"searchPoemas":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"searchPoemas"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[info] ✔  functions: Loaded functions definitions from source: searchPoemas. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: searchPoemas."}}
+[info] ✔  functions[us-central1-searchPoemas]: http function initialized (http://localhost:5001/ecos-4f84d/us-central1/searchPoemas). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5001/ecos-4f84d/us-central1/searchPoemas)."}}
+[info] i  functions: Watching "/home/user/Ecos/ecos" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/home/user/Ecos/ecos\" for Cloud Functions..."}}
+[debug] [2025-09-16T06:15:32.469Z] Validating nodejs source
+[debug] [2025-09-16T06:15:34.216Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2025-09-16T06:15:34.217Z] Building nodejs source
+[debug] [2025-09-16T06:15:34.217Z] Failed to find version of module node: reached end of search path /home/user/Ecos/ecos/node_modules
+[warn] ⚠  functions: Your requested "node" version "22" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-09-16T06:15:34.226Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-09-16T06:15:34.245Z] Found firebase-functions binary at '/home/user/Ecos/ecos/node_modules/.bin/firebase-functions'
+[info] Serving at port 8852
+
+[debug] [2025-09-16T06:15:34.992Z] Got response from /__/functions.yaml {"endpoints":{},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[info] ✔  functions: Loaded functions definitions from source: . {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: ."}}
+[debug] [2025-09-16T06:16:21.683Z] File /home/user/Ecos/ecos/package.json changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /home/user/Ecos/ecos/package.json changed, reloading triggers"}}
+[debug] [2025-09-16T06:16:22.685Z] Validating nodejs source
+[debug] [2025-09-16T06:16:24.297Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2025-09-16T06:16:24.297Z] Building nodejs source
+[debug] [2025-09-16T06:16:24.297Z] Failed to find version of module node: reached end of search path /home/user/Ecos/ecos/node_modules
+[warn] ⚠  functions: Your requested "node" version "22" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2025-09-16T06:16:24.299Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-09-16T06:16:24.312Z] Found firebase-functions binary at '/home/user/Ecos/ecos/node_modules/.bin/firebase-functions'
+[info] Serving at port 8466
+
+[debug] [2025-09-16T06:16:25.166Z] Got response from /__/functions.yaml {"endpoints":{},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[info] ✔  functions: Loaded functions definitions from source: . {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: ."}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:36 +0000] "GET / HTTP/1.1" 200 - "https://firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:36 +0000] \"GET / HTTP/1.1\" 200 - \"https://firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:36 +0000] "GET /js/script.js HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:36 +0000] \"GET /js/script.js HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:36 +0000] "GET /css/style.css HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:36 +0000] \"GET /css/style.css HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:37 +0000] "GET /js/auth-status.js HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:37 +0000] \"GET /js/auth-status.js HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:37 +0000] "GET /js/firebase-config.js HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:37 +0000] \"GET /js/firebase-config.js HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:38 +0000] "GET / HTTP/1.1" 200 - "https://firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:38 +0000] \"GET / HTTP/1.1\" 200 - \"https://firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:38 +0000] "GET /css/style.css HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:38 +0000] \"GET /css/style.css HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:38 +0000] "GET /js/script.js HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:38 +0000] \"GET /js/script.js HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:38 +0000] "GET /js/firebase-config.js HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:38 +0000] \"GET /js/firebase-config.js HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:38 +0000] "GET /js/auth-status.js HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:38 +0000] \"GET /js/auth-status.js HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:58 +0000] "GET /css/style.css HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:58 +0000] \"GET /css/style.css HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:58 +0000] "GET /js/auth-status.js HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:58 +0000] \"GET /js/auth-status.js HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:58 +0000] "GET /js/script.js HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:58 +0000] \"GET /js/script.js HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [16/Sep/2025:06:17:58 +0000] "GET /js/firebase-config.js HTTP/1.1" 404 - "https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [16/Sep/2025:06:17:58 +0000] \"GET /js/firebase-config.js HTTP/1.1\" 404 - \"https://5000-firebase-ecos-1757994476294.cluster-lr6dwlc2lzbcctqhqorax5zmro.cloudworkstations.dev/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}

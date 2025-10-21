@@ -102,7 +102,7 @@ function exibirPoema(id, { titulo, texto, categorias }) {
   const cats = Array.isArray(categorias) ? categorias.join(', ') : 'Sem categoria';
 
   div.innerHTML = `
-    <h2><a href="ecos/poema.html?id=${id}">${titulo}</a></h2>
+    <h2><a href="poema.html?id=${id}">${titulo}</a></h2>
     <p>${texto.substring(0, 150)}...</p>
     <p class="categorias">${cats}</p>`;
   listaPoemas.appendChild(div);
