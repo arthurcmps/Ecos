@@ -1,45 +1,110 @@
-// js/auth.js (Modificado)
-import { auth } from './firebase-config.js';
+import { auth, db } from './firebase-config.js'; 
 import { 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword,
-  GoogleAuthProvider, // 1. Importar o Provedor Google
-  signInWithPopup     // 2. Importar o método de Popup
+  GoogleAuthProvider,
+  signInWithPopup,
+  updateProfile // 2. IMPORTAR 'updateProfile'
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; // 3. IMPORTAR 'doc' e 'setDoc'
 
+// ... (seletores e função setFeedback não mudam) ...
 const formLogin = document.getElementById('form-login');
 const formCriarConta = document.getElementById('form-criar-conta');
-const btnGoogleLogin = document.getElementById('btn-google-login'); // 3. Selecionar o botão
+const btnGoogleLogin = document.getElementById('btn-google-login');
 const feedbackMessage = document.getElementById('feedback-message');
 const btnSubmit = document.getElementById('btn-submit');
 
-// Função para mostrar feedback
 function setFeedback(message, isError = true) {
-  // ... (função existente, sem mudanças)
   feedbackMessage.textContent = message;
   feedbackMessage.className = `feedback ${isError ? 'error' : 'success'}`;
 }
 
-// --- Lógica para Criar Conta ---
+// 4. NOVA FUNÇÃO: Validar Idade (>= 18 anos)
+function isUserOver18(dateString) {
+  // A data vem como 'AAAA-MM-DD'
+  const today = new Date();
+  const birthDate = new Date(dateString);
+
+  // Calcula a idade
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDifference = today.getMonth() - birthDate.getMonth();
+  
+  // Ajusta a idade se o aniversário ainda não ocorreu este ano
+  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  
+  return age >= 18;
+}
+
+
+// --- Lógica para Criar Conta (MODIFICADA) ---
 if (formCriarConta) {
-  // ... (código existente, sem mudanças)
   formCriarConta.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('email').value;
+    
+    // 5. OBTER TODOS OS VALORES DO FORMULÁRIO
+    const nome = document.getElementById('nome').value.trim();
+    const sobrenome = document.getElementById('sobrenome').value.trim();
+    const dataNascimento = document.getElementById('data-nascimento').value;
+    const email = document.getElementById('email').value.trim();
     const senha = document.getElementById('senha').value;
     const confirmarSenha = document.getElementById('confirmar-senha').value;
-
+    
+    // --- Validações ---
     if (senha !== confirmarSenha) {
       setFeedback("As senhas não coincidem.");
       return;
     }
 
+    if (!nome || !sobrenome) {
+        setFeedback("Nome e sobrenome são obrigatórios.");
+        return;
+    }
+
+    if (!dataNascimento) {
+        setFeedback("A data de nascimento é obrigatória.");
+        return;
+    }
+
+    // 6. VALIDAR A IDADE
+    if (!isUserOver18(dataNascimento)) {
+      setFeedback("Você deve ter pelo menos 18 anos para criar uma conta.");
+      return;
+    }
+    
     btnSubmit.disabled = true;
     setFeedback("Criando conta...", false);
 
     try {
-      await createUserWithEmailAndPassword(auth, email, senha);
+      // 7. CRIAR O USUÁRIO no Auth (como antes)
+      const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+      const user = userCredential.user;
+      const nomeCompleto = `${nome} ${sobrenome}`;
+
+      // 8. ATUALIZAR O PERFIL (Salva o nome no Firebase Auth)
+      await updateProfile(user, {
+        displayName: nomeCompleto
+      });
+
+      // 9. SALVAR DADOS NO FIRESTORE (Cria um documento para o usuário)
+      // Isso salva os dados extras (como data de nasc.)
+      const userDocRef = doc(db, "users", user.uid); // (db, 'nome_da_colecao', 'id_do_documento')
+      
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        nome: nome,
+        sobrenome: sobrenome,
+        nomeCompleto: nomeCompleto,
+        email: user.email,
+        dataNascimento: dataNascimento,
+        criadoEm: new Date() // Salva a data de criação do perfil
+      });
+
+      // Sucesso! Redireciona para a página inicial
       window.location.href = 'index.html'; 
+
     } catch (error) {
       console.error(error.code, error.message);
       if (error.code === 'auth/email-already-in-use') {

@@ -6,10 +6,13 @@ const userStatusDiv = document.getElementById('user-status');
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // Usuário está logado
+    
+    // 1. USA o 'displayName' (Nome) se existir, senão usa o email
+    const userName = user.displayName || user.email; 
+    
     userStatusDiv.innerHTML = `
       <div class="user-info">
-        <span>Olá, ${user.email}</span>
-        <a href="diario.html">Meu Diário</a>
+        <span>Olá, ${userName}</span> <a href="diario.html">Meu Diário</a>
         <button id="btn-logout">Sair</button>
       </div>
     `;
@@ -18,7 +21,6 @@ onAuthStateChanged(auth, (user) => {
     const btnLogout = document.getElementById('btn-logout');
     btnLogout.addEventListener('click', () => {
       signOut(auth).then(() => {
-        // Redireciona para o index após o logout
         window.location.href = 'index.html';
       }).catch((error) => {
         console.error("Erro ao fazer logout: ", error);

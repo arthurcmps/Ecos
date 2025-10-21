@@ -176,3 +176,38 @@ header h1 {
 .btn-google:hover {
     background-color: #ddd;
 }
+
+/* Novo: Para agrupar campos lado-a-lado */
+.form-group-row {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+/* Novo: Para agrupar label e input */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem; /* Espaço entre label e input */
+}
+
+/* Ajuste no formulário e labels (Substitua as regras existentes se já tiver) */
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 1.2rem; /* Espaçamento principal entre os grupos */
+}
+
+.auth-card label {
+    font-size: 0.9rem;
+    color: #c19a6b;
+    /* Remove o margin-bottom negativo se você o tiver */
+    /* margin-bottom: -1rem; */ 
+}
+
+/* Garante que o calendário do input de data seja legível */
+.auth-card input[type="date"] {
+    color-scheme: dark;
+}
