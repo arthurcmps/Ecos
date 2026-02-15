@@ -11,19 +11,31 @@
   <header>
     <h1>Ecos</h1>
     <div id="user-status">
-      <div class="user-links">
-        <a href="login.html" class="secondary">Login</a>
-        <a href="criar-conta.html">Criar Conta</a>
       </div>
-    </div>
   </header>
 
   <main>
-    <h2>Poemas Públicos</h2>
-    <p>Em breve, os poemas aparecerão aqui.</p>
+    <section id="criar-poema-container" class="hidden">
+      <h2>O que você está ecoando hoje?</h2>
+      <form id="form-criar-poema">
+        <label for="poema-titulo" class="hidden">Título</label>
+        <input type="text" id="poema-titulo" placeholder="Título do seu poema" required>
+        
+        <label for="poema-texto" class="hidden">Texto</label>
+        <textarea id="poema-texto" placeholder="Escreva seu poema aqui..." required></textarea>
+        
+        <button type="submit" id="btn-postar-poema">Postar</button>
+      </form>
+      <p id="feedback-poema" class="feedback"></p>
+    </section>
+
+    <h2>Feed</h2>
+    <section id="feed-poemas">
+      <p id="loading-feed">Carregando poemas...</p>
+    </section>
+
   </main>
 
   <script type="module" src="js/auth-status.js"></script>
-  <script type="module" src="js/firebase-config.js"></script>
-  </body>
+  <script type="module" src="js/app.js"></script> </body>
 </html>

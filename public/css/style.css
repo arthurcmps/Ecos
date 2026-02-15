@@ -226,3 +226,107 @@ header h1 {
     color: #9d8b7b;
     margin: 0 0.5rem;
 }
+
+/* --- Estilos do Feed e Criação de Poemas --- */
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+#criar-poema-container {
+    background-color: #2d2420;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    border: 1px solid #444;
+}
+
+#criar-poema-container h2 {
+    margin-top: 0;
+}
+
+#form-criar-poema {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#form-criar-poema input,
+#form-criar-poema textarea {
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #3b2f2f;
+    color: #f5f0e1;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+}
+
+#form-criar-poema textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+#form-criar-poema button {
+    align-self: flex-end; /* Alinha o botão à direita */
+    padding: 0.75rem 1.5rem;
+    background-color: #c19a6b;
+    color: #1f1b18;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#form-criar-poema button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* --- Estilos dos Cards de Poema --- */
+
+#feed-poemas {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.poema-card {
+    background-color: #2d2420;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #c19a6b;
+}
+
+.poema-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.poema-card-meta {
+    font-size: 0.9rem;
+    color: #c5b5a1;
+    margin-bottom: 1rem;
+}
+
+.poema-card-meta a {
+    color: #c19a6b;
+    text-decoration: none;
+    font-weight: bold;
+}
+.poema-card-meta a:hover {
+    text-decoration: underline;
+}
+
+.poema-card-texto {
+    white-space: pre-wrap; /* Preserva quebras de linha e espaços */
+    line-height: 1.7;
+}
+
+/* Para esconder elementos (como o form de postar) */
+.hidden {
+    display: none;
+}
